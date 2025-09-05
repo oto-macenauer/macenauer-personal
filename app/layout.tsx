@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   keywords: "Oto Macenauer, software engineer, developer, portfolio, web development, programming",
   authors: [{ name: "Oto Macenauer" }],
   creator: "Oto Macenauer",
+  icons: {
+    icon: 'https://www.macenauer.net/favicon.svg',
+    shortcut: 'https://www.macenauer.net/favicon.svg',
+    apple: 'https://www.macenauer.net/favicon.svg',
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
