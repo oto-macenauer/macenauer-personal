@@ -3,8 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: 'standalone',
   images: {
-    loader: 'custom',
-    loaderFile: './imageLoader.js',
+    unoptimized: true,
   },
   async headers() {
     return [

@@ -5,6 +5,11 @@ import { Code, Palette, Rocket } from 'lucide-react';
 import Image from 'next/image';
 
 export default function About() {
+  // Use absolute URL in production
+  const imageUrl = process.env.NEXT_PUBLIC_BASE_URL 
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}/images/profile.jpg`
+    : '/images/profile.jpg';
+  
   const skills = [
     { icon: Code, title: 'Full-stack Development', description: 'Expert in .NET, ASP.NET, Vue.js, React, SharePoint, and enterprise application development' },
     { icon: Palette, title: 'Architecture & Design', description: 'Designing scalable systems, geospatial solutions, and cloud-based architectures with Azure' },
@@ -49,7 +54,7 @@ export default function About() {
             <div className="relative">
               <div className="aspect-square bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl overflow-hidden relative">
                 <Image 
-                  src="/images/profile.jpg"
+                  src={imageUrl}
                   alt="Oto Macenauer"
                   fill
                   className="object-cover"
