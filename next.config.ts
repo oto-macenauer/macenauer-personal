@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  assetPrefix: process.env.NODE_ENV === 'production' ? 'https://www.macenauer.net' : '',
   images: {
     unoptimized: true,
   },
@@ -10,10 +11,6 @@ const nextConfig: NextConfig = {
       {
         source: '/(.*)',
         headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: "upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://vitals.vercel-insights.com"
-          },
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff'
