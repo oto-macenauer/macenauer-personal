@@ -3,18 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: 'standalone',
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'www.macenauer.net',
-      },
-      {
-        protocol: 'https',
-        hostname: 'macenauer.net',
-      },
-    ],
+    loader: 'custom',
+    loaderFile: './imageLoader.js',
   },
-  assetPrefix: process.env.NODE_ENV === 'production' ? 'https://www.macenauer.net' : '',
   async headers() {
     return [
       {
