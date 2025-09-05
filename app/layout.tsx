@@ -14,7 +14,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Oto Macenauer" }],
   creator: "Oto Macenauer",
   icons: {
-    icon: 'https://www.macenauer.net/favicon.svg',
+    icon: [
+      { url: 'https://www.macenauer.net/favicon.svg', type: 'image/svg+xml' },
+    ],
     shortcut: 'https://www.macenauer.net/favicon.svg',
     apple: 'https://www.macenauer.net/favicon.svg',
   },
