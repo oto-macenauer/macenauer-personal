@@ -7,7 +7,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://macenauer.net'),
+  metadataBase: new URL('https://www.macenauer.net'),
   title: "Oto Macenauer - Full-stack Developer",
   description: "Personal portfolio website of Oto Macenauer. Full-stack developer specializing in modern web technologies and innovative solutions.",
   keywords: "Oto Macenauer, software engineer, developer, portfolio, web development, programming",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://macenauer.net",
+    url: "https://www.macenauer.net",
     title: "Oto Macenauer - Full-stack Developer",
     description: "Personal portfolio website of Oto Macenauer. Full-stack developer specializing in modern web technologies and innovative solutions.",
     siteName: "Oto Macenauer Portfolio",
