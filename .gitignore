@@ -168,11 +168,10 @@ pnpm-lock.yaml
 
 # Gatsby files
 .cache/
-public
-
-# Comment out if you're using a static site generator
-# that auto-generates the public folder
 # public
+
+# Next.js needs the public folder for static assets
+# Commenting out the line above to include public folder in git
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
