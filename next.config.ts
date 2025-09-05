@@ -2,6 +2,19 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.macenauer.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'macenauer.net',
+      },
+    ],
+  },
+  assetPrefix: process.env.NODE_ENV === 'production' ? 'https://www.macenauer.net' : '',
   async headers() {
     return [
       {

@@ -13,6 +13,10 @@ RUN npm ci
 # Copy all files
 COPY . .
 
+# Set production environment for build
+ENV NODE_ENV=production
+ENV NEXT_PUBLIC_BASE_URL=https://www.macenauer.net
+
 # Build the Next.js application
 RUN npm run build
 

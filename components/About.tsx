@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Code, Palette, Rocket } from 'lucide-react';
-import Image from 'next/image';
 
 export default function About() {
   const skills = [
@@ -48,13 +47,11 @@ export default function About() {
 
             <div className="relative">
               <div className="aspect-square bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl overflow-hidden relative">
-                <Image 
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
                   src="/images/profile.jpg" 
                   alt="Oto Macenauer"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               </div>
             </div>
