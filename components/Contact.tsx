@@ -19,7 +19,7 @@ export default function Contact() {
           </h2>
 
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
-            I'm always interested in hearing about new opportunities, projects, and ideas. 
+            I&apos;m always interested in hearing about new opportunities, projects, and ideas. 
             Feel free to connect with me on LinkedIn for professional inquiries and discussions.
           </p>
 

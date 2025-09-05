@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Code, Palette, Rocket } from 'lucide-react';
+import Image from 'next/image';
 
 export default function About() {
   const skills = [
@@ -26,31 +27,33 @@ export default function About() {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="space-y-6">
               <p className="text-lg text-gray-600 leading-relaxed">
-                Hello! I'm Oto Macenauer, a Lead Product Engineer with over 14 years of experience 
+                Hello! I&apos;m Oto Macenauer, a Lead Product Engineer with over 14 years of experience 
                 in software development. Currently leading engineering initiatives at Absa Group, 
                 I specialize in building scalable enterprise solutions and modern web applications 
                 that deliver real business value.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
                 My expertise spans the full technology stack - from .NET and SharePoint to modern 
-                JavaScript frameworks like Vue.js and React. I've architected geospatial systems, 
+                JavaScript frameworks like Vue.js and React. I&apos;ve architected geospatial systems, 
                 banking solutions, and cloud-based platforms using technologies including ASP.NET, 
                 Azure, MS SQL, and Entity Framework.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Throughout my career at companies like Accenture, Trask, and GPS Dozor, I've led 
+                Throughout my career at companies like Accenture, Trask, and GPS Dozor, I&apos;ve led 
                 technical transformations, mentored development teams, and delivered complex projects 
-                for major clients including Škoda Auto and Česká pojišťovna. I'm passionate about 
+                for major clients including Škoda Auto and Česká pojišťovna. I&apos;m passionate about 
                 clean architecture, innovative solutions, and continuous learning.
               </p>
             </div>
 
             <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl overflow-hidden">
-                <img 
+              <div className="aspect-square bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl overflow-hidden relative">
+                <Image 
                   src="/images/profile.jpg" 
                   alt="Oto Macenauer"
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </div>
