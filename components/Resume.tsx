@@ -4,6 +4,10 @@ import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap, Award, Download } from 'lucide-react';
 
 export default function Resume() {
+  const resumeUrl = process.env.NEXT_PUBLIC_BASE_URL 
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}/resume.pdf`
+    : '/resume.pdf';
+
   const experience = [
     {
       title: 'Lead Product Engineer',
@@ -74,7 +78,7 @@ export default function Resume() {
 
           <div className="flex justify-center mb-12">
             <a 
-              href="/resume.pdf" 
+              href={resumeUrl}
               download
               className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-200"
             >
