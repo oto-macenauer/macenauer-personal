@@ -2,9 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  images: {
-    domains: ['macenauer.net', 'www.macenauer.net'],
-  },
   async headers() {
     return [
       {
