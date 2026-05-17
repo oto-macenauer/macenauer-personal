@@ -10,34 +10,52 @@ export default function Resume() {
 
   const experience = [
     {
+      title: 'Technical Lead',
+      company: 'Absa Group',
+      period: 'Nov 2025 - Present',
+      description: 'Leading development of cloud-native financial applications built with .NET and Python on AWS and Kubernetes. System architecture, full-stack feature work, technical direction, and developer mentoring.',
+    },
+    {
       title: 'Lead Product Engineer',
       company: 'Absa Group',
-      period: 'Feb 2021 - Present',
-      description: 'Leading product engineering initiatives for banking solutions. Architecting and implementing scalable financial systems with modern cloud technologies.',
+      period: 'Feb 2021 - Nov 2025',
+      description: 'Full-stack development and technical design of internal financial platforms. Backend services and APIs in .NET; frontend features in modern web frameworks; architecture decisions across product and engineering.',
     },
     {
-      title: 'Full Stack Developer',
-      company: 'iOCO',
+      title: 'Full-Stack Developer',
+      company: 'iOCO (Contract)',
       period: 'Nov 2019 - Jan 2021',
-      description: 'Contract position developing full-stack solutions. Built and maintained enterprise applications using modern web technologies.',
+      description: 'Development and maintenance of enterprise web applications. Backend APIs and services in .NET, with database and external system integrations.',
     },
     {
-      title: 'Full-stack Developer',
+      title: 'Full-Stack Developer',
       company: 'GPS Dozor - TLV s.r.o.',
       period: 'Jun 2015 - Oct 2019',
-      description: 'Designed architecture and implemented geospatial system for real-time GPS tracking. Led transformation to SPA using Vue.js, ASP.NET, Web API, MS SQL, and Entity Framework.',
+      description: 'Designed and shipped a real-time geospatial platform for GPS tracker monitoring. Led the SPA transformation with Vue.js, ASP.NET, Web API, MS SQL, Entity Framework, and WCF.',
     },
     {
       title: 'SharePoint Developer',
-      company: 'Trask solutions',
+      company: 'Trask Solutions',
       period: 'Feb 2013 - Jun 2015',
-      description: 'Maintained SharePoint projects for Škoda Auto. Designed cloud-based CMS with Azure frontend and on-premise SharePoint backend. Used SharePoint, ASP.NET, PowerShell, and MEF.',
+      description: 'Enterprise SharePoint solutions for Škoda Auto. Maintained the Team Webs document-sharing platform; designed New K2 — a SharePoint data layer with an Azure-hosted CMS frontend.',
     },
     {
       title: 'Programmer',
       company: 'Accenture',
       period: 'May 2011 - Jan 2013',
-      description: 'Developed SharePoint portal for Česká pojišťovna. Created data transformation tools for ČSOB Pojišťovna using .NET and MS SQL 2008.',
+      description: 'SharePoint applications for insurance companies. Business Portal for Česká pojišťovna; Data Transformation Tool for ČSOB Pojišťovna built on .NET and SQL Server.',
+    },
+    {
+      title: '.NET Developer',
+      company: 'Radiation Detection Systems',
+      period: 'Sep 2010 - Dec 2010',
+      description: 'Database for worker radiation exposure tracking (C# / WinForms / Access / OLE DB). Computer-vision application processing radiation-sensitive films (C++ / OpenCV / Qt).',
+    },
+    {
+      title: '.NET Developer',
+      company: 'Progress Project',
+      period: 'Jan 2008 - Jun 2010',
+      description: 'Analysis and development of a construction-evidence management application built on ASP.NET MVC, jQuery, and Entity Framework.',
     },
   ];
 

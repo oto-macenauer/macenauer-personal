@@ -11,9 +11,9 @@ export default function About() {
     : '/images/profile.jpg';
   
   const skills = [
-    { icon: Code, title: 'Full-stack Development', description: 'Expert in .NET, ASP.NET, Vue.js, React, SharePoint, and enterprise application development' },
-    { icon: Palette, title: 'Architecture & Design', description: 'Designing scalable systems, geospatial solutions, and cloud-based architectures with Azure' },
-    { icon: Rocket, title: 'Database & Backend', description: 'MS SQL, Entity Framework, Web APIs, WCF, and building robust backend services' },
+    { icon: Code, title: 'Full-stack Development', description: 'Expert in .NET, C#, Angular, Vue.js, React, Python, and enterprise application development' },
+    { icon: Palette, title: 'Cloud Architecture', description: 'Designing scalable systems, geospatial solutions, and cloud-native architectures on AWS, Azure, and Kubernetes' },
+    { icon: Rocket, title: 'Database & Backend', description: 'PostgreSQL, MS SQL, Entity Framework, Web APIs, and robust backend services in .NET and Python' },
   ];
 
   return (
@@ -32,22 +32,22 @@ export default function About() {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="space-y-6">
               <p className="text-lg text-gray-600 leading-relaxed">
-                Hello! I&apos;m Oto Macenauer, a Lead Product Engineer with over 14 years of experience 
-                in software development. Currently leading engineering initiatives at Absa Group, 
-                I specialize in building scalable enterprise solutions and modern web applications 
-                that deliver real business value.
+                Hello! I&apos;m Oto Macenauer, a Tech Lead and full-stack developer with over a
+                decade of experience. Currently leading development of cloud-native financial
+                applications at Absa Group, I combine hands-on engineering with technical
+                leadership — guiding architecture decisions and mentoring teams.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
-                My expertise spans the full technology stack - from .NET and SharePoint to modern 
-                JavaScript frameworks like Vue.js and React. I&apos;ve architected geospatial systems, 
-                banking solutions, and cloud-based platforms using technologies including ASP.NET, 
-                Azure, MS SQL, and Entity Framework.
+                My expertise spans the full technology stack — from .NET and C# on the backend
+                to modern frontend work in Angular and Vue. I&apos;ve shipped geospatial systems,
+                banking platforms, and cloud-native applications running on AWS and Kubernetes,
+                with PostgreSQL and SQL Server in the data layer.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Throughout my career at companies like Accenture, Trask, and GPS Dozor, I&apos;ve led 
-                technical transformations, mentored development teams, and delivered complex projects 
-                for major clients including Škoda Auto and Česká pojišťovna. I&apos;m passionate about 
-                clean architecture, innovative solutions, and continuous learning.
+                Across roles at Accenture, Trask, GPS Dozor, iOCO, and Absa, I&apos;ve led
+                technical transformations and delivered complex projects for clients including
+                Škoda Auto, Česká pojišťovna, and ČSOB Pojišťovna. Trained at Brno University
+                of Technology and Czech Technical University in Prague.
               </p>
             </div>
 

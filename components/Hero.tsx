@@ -27,7 +27,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          Lead Product Engineer at Absa Group
+          Tech Lead at Absa Group
         </motion.h2>
         
         <motion.p 
@@ -36,8 +36,9 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          14+ years of experience in software engineering. Specializing in enterprise solutions, 
-          cloud architecture, and full-stack development with .NET and modern JavaScript frameworks.
+          Over a decade of experience in software engineering. Specializing in cloud-native
+          banking platforms, system architecture, and full-stack development with .NET, Python,
+          Angular, and AWS.
         </motion.p>
 
         <motion.div

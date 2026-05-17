@@ -8,8 +8,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.macenauer.net'),
-  title: "Oto Macenauer - Full-stack Developer",
-  description: "Personal portfolio website of Oto Macenauer. Full-stack developer specializing in modern web technologies and innovative solutions.",
+  title: "Oto Macenauer - Tech Lead & Full-Stack Engineer",
+  description: "Personal portfolio of Oto Macenauer. Tech Lead at Absa Group with over a decade of experience in .NET, Python, Angular, AWS, and Kubernetes.",
   keywords: "Oto Macenauer, software engineer, developer, portfolio, web development, programming",
   authors: [{ name: "Oto Macenauer" }],
   creator: "Oto Macenauer",
@@ -24,14 +24,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://www.macenauer.net",
-    title: "Oto Macenauer - Full-stack Developer",
-    description: "Personal portfolio website of Oto Macenauer. Full-stack developer specializing in modern web technologies and innovative solutions.",
+    title: "Oto Macenauer - Tech Lead & Full-Stack Engineer",
+    description: "Personal portfolio of Oto Macenauer. Tech Lead at Absa Group with over a decade of experience in .NET, Python, Angular, AWS, and Kubernetes.",
     siteName: "Oto Macenauer Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Oto Macenauer - Full-stack Developer",
-    description: "Personal portfolio website of Oto Macenauer. Full-stack developer specializing in modern web technologies and innovative solutions.",
+    title: "Oto Macenauer - Tech Lead & Full-Stack Engineer",
+    description: "Personal portfolio of Oto Macenauer. Tech Lead at Absa Group with over a decade of experience in .NET, Python, Angular, AWS, and Kubernetes.",
     creator: "@otomacenauer",
   },
   robots: {
