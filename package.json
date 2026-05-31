@@ -10,7 +10,7 @@
     "cv": "node scripts/generate-cv.mjs"
   },
   "dependencies": {
-    "framer-motion": "^12.23.12",
+    "framer-motion": "^12.40.0",
     "lucide-react": "^0.542.0",
     "next": "15.5.18",
     "pdfkit": "^0.18.0",
