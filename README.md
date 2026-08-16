@@ -187,6 +187,32 @@ draft: true
 Run `npm run blog:check` while writing. It is also part of `npm run build`,
 along with a post-build check that every published post actually rendered.
 
+Findings on a **draft** are warnings; on a **published** post the same findings
+are errors. A work-in-progress post therefore never blocks a build.
+
+### Assisted authoring
+
+Three Claude Code skills live in `.claude/skills/` and are used in order:
+
+| Skill | Does |
+|---|---|
+| `blog-draft` | Bullets → finished draft. Structure, grammar, frontmatter, image briefs. Never invents metrics — it asks. |
+| `blog-images` | Resolves image briefs from Unsplash/Pexels or your own files, with attribution and EXIF stripping. |
+| `blog-share` | Writes the LinkedIn copy and verifies the live Open Graph card actually renders. |
+
+```bash
+npm run new-post -- "Post title"     # scaffold, then run blog-draft
+```
+
+Image sourcing needs free API keys in `.env.local` (gitignored):
+
+```
+UNSPLASH_ACCESS_KEY=     # https://unsplash.com/oauth/applications
+PEXELS_API_KEY=          # https://www.pexels.com/api/
+```
+
+Neither key is needed to build or run the site.
+
 ## 🔧 Configuration Files
 
 - `astro.config.mjs` - Astro configuration (site URL, sitemap, Tailwind, fonts)
