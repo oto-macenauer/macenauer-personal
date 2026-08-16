@@ -1,0 +1,60 @@
+---
+import Icon from './Icon.astro';
+---
+
+<section
+  class="relative min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-br from-hero-from via-hero-via to-hero-to"
+>
+  <div class="text-center max-w-4xl mx-auto" data-enter>
+    <h1
+      class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-grad-from to-grad-to bg-clip-text text-transparent"
+      data-enter
+      style="--enter-delay: 200ms"
+    >
+      Oto Macenauer
+    </h1>
+
+    <h2
+      class="text-2xl md:text-3xl text-strong mb-8"
+      data-enter
+      style="--enter-delay: 400ms"
+    >
+      Tech Lead at Absa Group
+    </h2>
+
+    <p
+      class="text-lg md:text-xl text-body max-w-2xl mx-auto mb-12"
+      data-enter
+      style="--enter-delay: 600ms"
+    >
+      Over a decade of experience in software engineering. Specializing in
+      cloud-native banking platforms, system architecture, and full-stack
+      development with .NET, Python, Angular, and AWS.
+    </p>
+
+    <div
+      class="flex gap-4 justify-center"
+      data-enter="fade"
+      style="--enter-delay: 800ms"
+    >
+      <a
+        href="#contact"
+        class="px-8 py-3 bg-accent text-on-accent rounded-full hover:bg-accent-hover transition-colors duration-200 font-medium"
+      >
+        Get In Touch
+      </a>
+      <a
+        href="#resume"
+        class="px-8 py-3 border-2 border-subtle text-strong rounded-full hover:border-muted transition-colors duration-200 font-medium"
+      >
+        View Resume
+      </a>
+    </div>
+  </div>
+
+  <div class="absolute bottom-10" data-enter="fade" style="--enter-delay: 1200ms">
+    <a href="#about" class="animate-bounce block" aria-label="Scroll to About">
+      <Icon name="chevron-down" class="w-8 h-8 text-muted" />
+    </a>
+  </div>
+</section>

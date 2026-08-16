@@ -1,0 +1,175 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Design tokens.
+
+   Every colour the site uses is a semantic token, not a raw Tailwind shade.
+   Dark mode then works by redefining the tokens once, below, instead of
+   sprinkling `dark:` variants across every element. The blog inherits all of
+   this for free.
+
+   Note: plain `@theme` (not `@theme inline`) is required — it emits real
+   custom properties on :root that the media query below can override.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-surface-alt: #f9fafb;
+  --color-surface-alt-hover: #f3f4f6;
+  --color-surface-card: #ffffff;
+
+  /* Text */
+  --color-strong: #111827;
+  --color-body: #4b5563;
+  --color-muted: #6b7280;
+
+  /* Lines */
+  --color-subtle: #d1d5db;
+
+  /* Accent */
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-accent-soft: #dbeafe;
+  --color-on-accent: #ffffff;
+
+  /* Hero backdrop + display gradient */
+  --color-hero-from: #eff6ff;
+  --color-hero-via: #ffffff;
+  --color-hero-to: #faf5ff;
+  --color-grad-from: #2563eb;
+  --color-grad-to: #9333ea;
+
+  /* Footer keeps its own scale — it is dark in both themes */
+  --color-footer: #111827;
+  --color-footer-card: #1f2937;
+  --color-footer-card-hover: #374151;
+  --color-footer-text: #ffffff;
+  --color-footer-muted: #9ca3af;
+  --color-footer-border: #1f2937;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-surface: #0b0f19;
+    --color-surface-alt: #111827;
+    --color-surface-alt-hover: #1f2937;
+    --color-surface-card: #1f2937;
+
+    --color-strong: #f3f4f6;
+    --color-body: #d1d5db;
+    --color-muted: #9ca3af;
+
+    --color-subtle: #374151;
+
+    --color-accent: #60a5fa;
+    --color-accent-hover: #93c5fd;
+    --color-accent-soft: #1e3a8a;
+    --color-on-accent: #0b0f19;
+
+    --color-hero-from: #0f172a;
+    --color-hero-via: #0b0f19;
+    --color-hero-to: #1e1b31;
+    --color-grad-from: #60a5fa;
+    --color-grad-to: #c084fc;
+
+    --color-footer: #030712;
+    --color-footer-card: #111827;
+    --color-footer-card-hover: #1f2937;
+    --color-footer-text: #f9fafb;
+    --color-footer-muted: #9ca3af;
+    --color-footer-border: #1f2937;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-surface);
+  color-scheme: light dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion.
+
+   Replaces Framer Motion. The start states are scoped to `.js` (set by an
+   inline script in <head>) so that if scripting is unavailable the content
+   renders visible instead of staying stuck at opacity 0.
+--------------------------------------------------------------------------- */
+
+/* On-load entrance — Hero. Pure CSS, no observer needed. */
+.js [data-enter] {
+  opacity: 0;
+  animation: enter-up 0.6s ease forwards;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+.js [data-enter='fade'] {
+  animation-name: enter-fade;
+}
+
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes enter-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Scroll reveal — everything below the fold. */
+.js [data-reveal] {
+  opacity: 0;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js [data-reveal='up'] {
+  transform: translateY(20px);
+}
+.js [data-reveal='left'] {
+  transform: translateX(-20px);
+}
+.js [data-reveal='right'] {
+  transform: translateX(20px);
+}
+.js [data-reveal='scale'] {
+  transform: scale(0);
+}
+.js [data-reveal='fade'] {
+  transform: none;
+}
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-enter],
+  .js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

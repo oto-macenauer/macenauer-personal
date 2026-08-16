@@ -1,0 +1,97 @@
+---
+import Icon from './Icon.astro';
+import { experience, education, certifications } from '@/data/resume';
+---
+
+<section id="resume" class="py-20 px-4 bg-surface-alt">
+  <div class="max-w-6xl mx-auto">
+    <div data-reveal="up">
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-strong">
+        Resume
+      </h2>
+
+      <div class="flex justify-center mb-12">
+        <a
+          href="/resume.pdf"
+          download
+          class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-on-accent rounded-full hover:bg-accent-hover transition-colors duration-200"
+        >
+          <Icon name="download" class="w-5 h-5" />
+          Download Full CV
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <Icon name="briefcase" class="w-6 h-6 text-accent" />
+            <h3 class="text-2xl font-bold text-strong">Experience</h3>
+          </div>
+          <div class="space-y-8">
+            {
+              experience.map((job, index) => (
+                <div
+                  class="relative pl-8 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-subtle"
+                  data-reveal="left"
+                  style={`--reveal-delay: ${index * 100}ms`}
+                >
+                  <div class="absolute left-[-4px] top-2 w-2 h-2 bg-accent rounded-full" />
+                  <h4 class="text-xl font-semibold text-strong">{job.title}</h4>
+                  <p class="text-accent font-medium">{job.company}</p>
+                  <p class="text-sm text-muted mb-2">{job.period}</p>
+                  <p class="text-body">{job.description}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <div class="mb-12">
+            <div class="flex items-center gap-3 mb-8">
+              <Icon name="graduation-cap" class="w-6 h-6 text-accent" />
+              <h3 class="text-2xl font-bold text-strong">Education</h3>
+            </div>
+            <div class="space-y-6">
+              {
+                education.map((edu, index) => (
+                  <div
+                    class="bg-surface-card p-6 rounded-xl shadow-sm"
+                    data-reveal="right"
+                    style={`--reveal-delay: ${index * 100}ms`}
+                  >
+                    <h4 class="text-xl font-semibold text-strong">
+                      {edu.degree}
+                    </h4>
+                    <p class="text-accent font-medium">{edu.school}</p>
+                    <p class="text-sm text-muted mb-2">{edu.period}</p>
+                    <p class="text-body">{edu.description}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-3 mb-8">
+              <Icon name="award" class="w-6 h-6 text-accent" />
+              <h3 class="text-2xl font-bold text-strong">Certifications</h3>
+            </div>
+            <div class="bg-surface-card p-6 rounded-xl shadow-sm" data-reveal="up">
+              <ul class="space-y-3">
+                {
+                  certifications.map((cert) => (
+                    <li class="flex items-center gap-2">
+                      <div class="w-1.5 h-1.5 bg-accent rounded-full" />
+                      <span class="text-body">{cert}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
