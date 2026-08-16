@@ -19,6 +19,13 @@ updates:
       types:
         patterns:
           - "@types/*"
+    ignore:
+      # TypeScript 7 (the native port) is not supported by Astro yet:
+      # @astrojs/check declares "typescript": "^5.0.0 || ^6.0.0", so 7.0.x
+      # breaks `npm run build`. Support is expected in 7.1, which this range
+      # deliberately leaves un-ignored.
+      - dependency-name: "typescript"
+        versions: [">=7.0.0 <7.1.0"]
 
   - package-ecosystem: "docker"
     directory: "/"
