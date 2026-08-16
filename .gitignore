@@ -14,6 +14,11 @@
 .astro/
 /out/
 
+# staging area for original photos handed to the blog-images skill.
+# Full-resolution and EXIF-bearing; the processed copies under
+# src/content/blog/<slug>/media/ are what belongs in the repo.
+.input-photos/
+
 # production
 /build
 /dist
