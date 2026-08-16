@@ -7,11 +7,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Development
 ```bash
 npm run dev        # Start dev server at http://localhost:4321
-npm run build      # Type-check (astro check) then build to dist/
+npm run build      # Full gated build (see below)
 npm run preview    # Serve the built dist/ locally
 npm run lint       # astro check — types and template diagnostics
+npm run blog:check # Authoring guard for blog posts
 npm run cv         # Regenerate public/resume.pdf from src/data/resume.ts
 ```
+
+`npm run build` runs four steps in order, and any of them can fail the build:
+`astro check` → `scripts/check-blog.mjs` → `astro build` → `scripts/verify-build.mjs`.
 
 ### Docker Deployment
 ```bash
@@ -66,3 +70,52 @@ is disabled under `prefers-reduced-motion`.
 ### Content Updates
 Personal information, experience, education, and skills live in `src/data/`.
 Update those files — components contain markup only.
+
+## Blog
+
+Posts live in git, one directory per post. The directory name is the slug and
+therefore the permalink — renaming a published directory breaks its URL.
+
+```
+src/content/blog/<slug>/
+  index.md      frontmatter + body
+  media/        images, referenced relatively
+  share/        generated share copy, not published
+```
+
+Frontmatter is validated by a zod schema in `src/content.config.ts`; an invalid
+post fails the build rather than publishing broken. Routes are
+`/blog`, `/blog/<slug>`, `/blog/tag/<tag>`, plus `/rss.xml` and a generated
+`/og/<slug>.png` card.
+
+### Authoring rules
+- **Images**: plain relative Markdown, `![alt](media/thing.jpg)`. Astro optimizes
+  them at build — responsive `srcset`, modern formats, intrinsic dimensions.
+  Do not hand-roll an image pipeline or commit derivatives.
+- **Callouts**: `:::note`, `:::tip`, `:::warn` only, via `remark-directive`.
+- **Drafts**: `draft: true` shows in `dev` and is excluded from production
+  builds, the sitemap and the feed.
+- **Reading time** is computed by a remark plugin — never author it.
+
+### Why there are two guards, not one
+Astro's glob-loader **catches Markdown render errors, logs them, and lets the
+build succeed**, emitting a page with full chrome and an empty body. So:
+- `scripts/check-blog.mjs` validates statically *before* the build (callout
+  names, unresolved `<!-- image-brief: -->` markers, missing media).
+- `scripts/verify-build.mjs` asserts *after* the build that every published
+  post rendered a non-empty body and got an OG card.
+
+Do not rely on the remark plugin throwing — on its own it does not fail the
+build.
+
+### Markdown processor
+Astro 7 defaults to Sätteri. This project explicitly opts into the
+remark/rehype pipeline via `unified()` from `@astrojs/markdown-remark`, because
+the callout and reading-time plugins are remark plugins. Changing the processor
+means rewriting them.
+
+### @fontsource/inter is a build dependency
+It supplies `.woff` font data to satori for the OG cards (satori supports
+ttf/otf/woff, **not** woff2), and it works without system fonts, which the
+Alpine build stage lacks. The site's own webfont comes from Astro's fonts API.
+Do not remove `@fontsource/inter` as unused.

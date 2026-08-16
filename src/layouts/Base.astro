@@ -67,6 +67,16 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
       name="robots"
       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.name} — Blog`}
+      href={new URL('/rss.xml', Astro.site).href}
+    />
+
+    <!-- Page-specific head content, e.g. JSON-LD on blog posts. -->
+    <slot name="head" />
   </head>
 
   <body class="font-sans antialiased bg-surface text-body">

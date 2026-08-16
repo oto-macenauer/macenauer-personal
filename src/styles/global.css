@@ -173,3 +173,192 @@ html {
     transition: none !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Long-form prose (blog posts).
+
+   Hand-rolled rather than pulling in @tailwindcss/typography, so every colour
+   routes through the same tokens as the rest of the site and dark mode needs
+   no extra work.
+--------------------------------------------------------------------------- */
+.prose {
+  color: var(--color-body);
+  line-height: 1.75;
+  font-size: 1.125rem;
+}
+
+.prose > * + * {
+  margin-top: 1.5em;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--color-strong);
+  font-weight: 700;
+  line-height: 1.3;
+  scroll-margin-top: 2rem;
+}
+
+.prose h2 {
+  font-size: 1.75rem;
+  margin-top: 2.5em;
+}
+
+.prose h3 {
+  font-size: 1.35rem;
+  margin-top: 2em;
+}
+
+.prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose a:hover {
+  color: var(--color-accent-hover);
+}
+
+.prose strong {
+  color: var(--color-strong);
+  font-weight: 600;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5em;
+}
+
+.prose ul {
+  list-style: disc;
+}
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li + li {
+  margin-top: 0.5em;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1.25em;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+.prose img {
+  border-radius: 0.75rem;
+  width: 100%;
+  height: auto;
+}
+
+.prose figcaption {
+  margin-top: 0.75em;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.prose hr {
+  border-color: var(--color-subtle);
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid var(--color-subtle);
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+
+/* Inline code. Fenced blocks are handled by Shiki below. */
+.prose :not(pre) > code {
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-subtle);
+  border-radius: 0.3rem;
+  padding: 0.1em 0.35em;
+  font-size: 0.9em;
+}
+
+/* Wide content must scroll inside itself, never widen the page. */
+.prose pre,
+.prose table {
+  overflow-x: auto;
+}
+
+.prose pre {
+  border-radius: 0.75rem;
+  padding: 1.25em;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-subtle);
+}
+
+/* ---------------------------------------------------------------------------
+   Shiki dual themes.
+
+   The light theme renders inline; the dark theme is emitted as CSS variables
+   on the same markup, so this swaps them under the system preference.
+--------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  .astro-code,
+  .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Callouts — emitted by src/plugins/remark-callout.mjs from :::note/tip/warn
+--------------------------------------------------------------------------- */
+.callout {
+  border-left: 4px solid var(--callout-accent);
+  background: var(--color-surface-alt);
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 1rem 1.25rem;
+}
+
+.callout > * + * {
+  margin-top: 0.75em;
+}
+
+.callout::before {
+  content: attr(aria-label);
+  display: block;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--callout-accent);
+  margin-bottom: 0.5rem;
+}
+
+.callout-note {
+  --callout-accent: var(--color-accent);
+}
+
+.callout-tip {
+  --callout-accent: #059669;
+}
+
+.callout-warn {
+  --callout-accent: #d97706;
+}
+
+@media (prefers-color-scheme: dark) {
+  .callout-tip {
+    --callout-accent: #34d399;
+  }
+  .callout-warn {
+    --callout-accent: #fbbf24;
+  }
+}

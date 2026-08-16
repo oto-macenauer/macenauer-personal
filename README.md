@@ -13,8 +13,9 @@ Visit: [https://macenauer.net](https://macenauer.net)
 - **Dark Mode**: Follows the visitor's system preference via design tokens
 - **Smooth Animations**: CSS transitions driven by a tiny IntersectionObserver, disabled under `prefers-reduced-motion`
 - **Optimized Images**: Processed at build time by `astro:assets` (WebP, responsive `srcset`)
+- **Blog**: Markdown posts in git, with tags, drafts, RSS, and generated Open Graph cards
 - **Docker Ready**: Static build served by nginx in an 82 MB image
-- **SEO Friendly**: Metadata, Open Graph, canonical URLs, and a generated sitemap
+- **SEO Friendly**: Metadata, Open Graph, canonical URLs, JSON-LD, and a generated sitemap
 
 ## 🛠️ Tech Stack
 
@@ -32,10 +33,16 @@ personal-website/
 ├── src/
 │   ├── pages/            # Routes
 │   │   ├── index.astro   # Home page
-│   │   └── 404.astro     # Not-found page
-│   ├── layouts/
-│   │   └── Base.astro    # HTML shell, all <head> metadata
+│   │   ├── 404.astro     # Not-found page
+│   │   ├── rss.xml.ts    # Feed
+│   │   ├── blog/         # Blog index, posts, tag pages
+│   │   └── og/           # Generated Open Graph cards
+│   ├── content/blog/     # Posts — one directory per post
+│   ├── content.config.ts # Frontmatter schema (zod)
+│   ├── layouts/          # Base shell + BlogPost
 │   ├── components/       # Section components + Icon
+│   ├── plugins/          # remark: callouts, reading time
+│   ├── lib/blog.ts       # Post queries, tags, formatting
 │   ├── data/             # ALL site content lives here
 │   │   ├── resume.ts     # Experience, education, certifications
 │   │   ├── about.ts      # Skills
@@ -144,6 +151,41 @@ add or reuse a token instead, or dark mode will silently break.
 
 Add `data-reveal="up|left|right|scale|fade"` for scroll-in, or `data-enter`
 for on-load entrance. Stagger with `style="--reveal-delay: 100ms"`.
+
+## ✍️ Writing a post
+
+```
+src/content/blog/<slug>/
+  index.md      frontmatter + body
+  media/        images, referenced relatively
+```
+
+The directory name is the slug and therefore the permalink — renaming a
+published directory breaks its URL.
+
+```yaml
+---
+title: 'A title between 10 and 90 characters'
+date: 2026-08-16
+summary: One or two sentences. Becomes the meta description, card blurb and RSS description.
+tags: [dotnet, performance]
+cover: media/hero.jpg
+coverAlt: What the cover image shows
+draft: true
+---
+```
+
+- **Images** are plain relative Markdown — `![alt](media/thing.jpg)`. Astro
+  optimizes them at build time; nothing is committed pre-processed.
+- **Callouts** are `:::note`, `:::tip` and `:::warn`.
+- **Drafts** (`draft: true`) appear in `npm run dev` and are excluded from
+  production builds, the sitemap and the feed — safe to commit.
+- **Reading time** is computed automatically.
+- Everything else — tag pages, RSS entry, sitemap entry, and the 1200×630
+  Open Graph card — is generated.
+
+Run `npm run blog:check` while writing. It is also part of `npm run build`,
+along with a post-build check that every published post actually rendered.
 
 ## 🔧 Configuration Files
 

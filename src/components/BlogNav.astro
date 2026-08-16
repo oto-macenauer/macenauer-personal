@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+---
+
+<nav
+  class="max-w-3xl mx-auto px-4 py-6 flex items-center justify-between text-sm"
+>
+  <a
+    href="/"
+    class="inline-flex items-center gap-1.5 text-muted hover:text-accent transition-colors"
+  >
+    <Icon name="chevron-down" class="w-4 h-4 rotate-90" />
+    Back to site
+  </a>
+
+  <div class="flex items-center gap-5">
+    <a href="/blog/" class="text-muted hover:text-accent transition-colors">
+      All posts
+    </a>
+    <a
+      href="/rss.xml"
+      class="text-muted hover:text-accent transition-colors"
+      title="RSS feed"
+    >
+      RSS
+    </a>
+  </div>
+</nav>
