@@ -11,6 +11,7 @@ npm run build      # Full gated build (see below)
 npm run preview    # Serve the built dist/ locally
 npm run lint       # astro check — types and template diagnostics
 npm run blog:check # Authoring guard for blog posts
+npm run new-post -- "Title"   # Scaffold a post directory
 npm run cv         # Regenerate public/resume.pdf from src/data/resume.ts
 ```
 
@@ -113,6 +114,27 @@ Astro 7 defaults to Sätteri. This project explicitly opts into the
 remark/rehype pipeline via `unified()` from `@astrojs/markdown-remark`, because
 the callout and reading-time plugins are remark plugins. Changing the processor
 means rewriting them.
+
+### Authoring workflow
+Three skills in `.claude/skills/`, used in order. Prefer them over ad-hoc
+editing — they encode rules that are easy to get wrong:
+
+1. **blog-draft** — bullets → finished draft. Carries `STYLE.md` (voice, banned
+   phrasing). Leaves `<!-- image-brief: ... -->` markers. **Never invents
+   metrics** — it asks instead.
+2. **blog-images** — resolves the briefs via Unsplash/Pexels, or a file the
+   user supplies. Only those sources: arbitrary web images have no licence or
+   attribution.
+3. **blog-share** — LinkedIn copy, then verifies the live OG tags and reminds
+   about the LinkedIn Post Inspector re-scrape.
+
+Supporting scripts, which the skills call rather than reimplementing:
+- `scripts/new-post.mjs` — scaffolds the directory, stub and placeholder cover
+- `scripts/blog-image.mjs` — `search` / `fetch` / `add`; strips EXIF, caps
+  source width at 2000px. Never touch `media/` by other means.
+
+Stock photo API keys live in `.env.local` (gitignored):
+`UNSPLASH_ACCESS_KEY`, `PEXELS_API_KEY`. Neither is needed to build the site.
 
 ### @fontsource/inter is a build dependency
 It supplies `.woff` font data to satori for the OG cards (satori supports
