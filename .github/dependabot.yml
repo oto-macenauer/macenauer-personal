@@ -6,29 +6,26 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 10
     groups:
-      next:
+      # Astro core and its integrations must move together — a version skew
+      # between astro and @astrojs/* breaks the build.
+      astro:
         patterns:
-          - "next"
-          - "eslint-config-next"
-          - "@next/*"
-      react:
-        patterns:
-          - "react"
-          - "react-dom"
-          - "@types/react"
-          - "@types/react-dom"
-      types:
-        patterns:
-          - "@types/*"
-      eslint:
-        patterns:
-          - "eslint"
-          - "@eslint/*"
-          - "eslint-*"
+          - "astro"
+          - "@astrojs/*"
       tailwind:
         patterns:
           - "tailwindcss"
           - "@tailwindcss/*"
+      types:
+        patterns:
+          - "@types/*"
+    ignore:
+      # TypeScript 7 (the native port) is not supported by Astro yet:
+      # @astrojs/check declares "typescript": "^5.0.0 || ^6.0.0", so 7.0.x
+      # breaks `npm run build`. Support is expected in 7.1, which this range
+      # deliberately leaves un-ignored.
+      - dependency-name: "typescript"
+        versions: [">=7.0.0 <7.1.0"]
 
   - package-ecosystem: "docker"
     directory: "/"
