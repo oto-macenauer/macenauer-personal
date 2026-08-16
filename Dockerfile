@@ -1,6 +1,6 @@
 # ---- Build stage ----
 # Astro 7 requires Node >= 22.12.
-FROM node:22-alpine AS builder
+FROM node:26-alpine AS builder
 
 WORKDIR /app
 
