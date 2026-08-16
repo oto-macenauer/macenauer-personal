@@ -1,0 +1,42 @@
+---
+import Icon from './Icon.astro';
+import { socialLinks } from '@/data/social';
+import { site } from '@/data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="py-12 px-4 bg-footer text-footer-text">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center" data-reveal="up">
+      <h3 class="text-2xl font-bold mb-8">Connect With Me</h3>
+
+      <div class="flex justify-center gap-6 mb-8">
+        {
+          socialLinks.map((link, index) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.label}
+              class="p-3 bg-footer-card rounded-full hover:bg-footer-card-hover hover:scale-110 active:scale-95 transition duration-200"
+              data-reveal="scale"
+              style={`--reveal-delay: ${index * 100}ms`}
+            >
+              <Icon name={link.icon} class="w-6 h-6" />
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="border-t border-footer-border pt-8">
+        <p class="text-footer-muted">
+          &copy; {year} {site.name}. All rights reserved.
+        </p>
+        <p class="text-footer-muted text-sm mt-2 opacity-80">
+          Built with Astro, TypeScript, and Tailwind CSS
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

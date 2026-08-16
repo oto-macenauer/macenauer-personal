@@ -1,6 +1,6 @@
 # Oto Macenauer - Personal Portfolio Website
 
-A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS, showcasing my professional experience as a Lead Product Engineer with 14+ years in software development.
+A modern, responsive portfolio website built with Astro, TypeScript, and Tailwind CSS, showcasing my professional experience as a Tech Lead with 14+ years in software development.
 
 ## 🚀 Live Demo
 
@@ -8,48 +8,57 @@ Visit: [https://macenauer.net](https://macenauer.net)
 
 ## 📋 Features
 
+- **Zero JavaScript**: The page ships no client-side framework — ~11 kB gzipped critical path
 - **Responsive Design**: Fully responsive layout that works seamlessly across all devices
-- **Modern Tech Stack**: Built with Next.js 15, TypeScript, and Tailwind CSS
-- **Smooth Animations**: Implemented with Framer Motion for elegant transitions
-- **Performance Optimized**: Fast loading times with Next.js optimization
-- **Docker Ready**: Containerized for easy deployment
-- **SEO Friendly**: Properly configured metadata and sitemap
+- **Dark Mode**: Follows the visitor's system preference via design tokens
+- **Smooth Animations**: CSS transitions driven by a tiny IntersectionObserver, disabled under `prefers-reduced-motion`
+- **Optimized Images**: Processed at build time by `astro:assets` (WebP, responsive `srcset`)
+- **Docker Ready**: Static build served by nginx in an 82 MB image
+- **SEO Friendly**: Metadata, Open Graph, canonical URLs, and a generated sitemap
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 15.5.2
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Deployment**: Docker-ready
+- **Framework**: Astro 7 (`output: 'static'`)
+- **Language**: TypeScript (strict)
+- **Styling**: Tailwind CSS v4
+- **Fonts**: Astro built-in fonts API, self-hosted at build
+- **Icons**: Inlined SVG paths, no icon package
+- **Deployment**: Docker + nginx
 
 ## 📁 Project Structure
 
 ```
 personal-website/
-├── app/                # Next.js app directory
-│   ├── layout.tsx      # Root layout with metadata
-│   ├── page.tsx        # Home page
-│   └── globals.css     # Global styles
-├── components/         # React components
-│   ├── Hero.tsx        # Hero section
-│   ├── About.tsx       # About section
-│   ├── Resume.tsx      # Experience & Education
-│   ├── Contact.tsx     # Contact section
-│   └── SocialLinks.tsx # Social media links
-├── public/            # Static assets
-│   └── images/        # Images (profile photo, etc.)
-├── Dockerfile         # Docker configuration
-└── docker-compose.yml # Docker Compose setup
+├── src/
+│   ├── pages/            # Routes
+│   │   ├── index.astro   # Home page
+│   │   └── 404.astro     # Not-found page
+│   ├── layouts/
+│   │   └── Base.astro    # HTML shell, all <head> metadata
+│   ├── components/       # Section components + Icon
+│   ├── data/             # ALL site content lives here
+│   │   ├── resume.ts     # Experience, education, certifications
+│   │   ├── about.ts      # Skills
+│   │   ├── social.ts     # Social links
+│   │   └── site.ts       # Site-wide metadata
+│   ├── styles/
+│   │   └── global.css    # Tailwind, design tokens, motion
+│   ├── assets/           # Images optimized at build
+│   └── scripts/
+│       └── reveal.ts     # Scroll-reveal observer
+├── public/               # Served as-is (resume.pdf, favicon, robots.txt)
+├── astro.config.mjs      # Site URL, sitemap, Tailwind, fonts
+├── nginx.conf            # Headers, gzip, caching, 404
+├── Dockerfile            # Multi-stage build → nginx
+└── docker-compose.yml    # Docker Compose setup
 ```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 20 or higher
-- npm or yarn
+- Node.js 22.12 or higher (required by Astro 7)
+- npm
 - Docker (optional, for containerized deployment)
 
 ### Installation
@@ -70,16 +79,13 @@ npm install
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open [http://localhost:4321](http://localhost:4321) in your browser
 
 ### Building for Production
 
 ```bash
-# Build the application
-npm run build
-
-# Start production server
-npm run start
+npm run build      # astro check && astro build → dist/
+npm run preview    # Serve the built output locally
 ```
 
 ## 🐳 Docker Deployment
@@ -97,14 +103,16 @@ docker-compose logs -f
 docker-compose down
 ```
 
+The site is then available at [http://localhost:3000](http://localhost:3000).
+
 ### Using Docker CLI
 
 ```bash
 # Build the image
 docker build -t oto-macenauer-portfolio .
 
-# Run the container
-docker run -p 3000:3000 oto-macenauer-portfolio
+# Run the container (nginx listens on 8080 inside)
+docker run -p 3000:8080 oto-macenauer-portfolio
 ```
 
 For detailed Docker deployment instructions, see [README.Docker.md](./README.Docker.md)
@@ -113,24 +121,36 @@ For detailed Docker deployment instructions, see [README.Docker.md](./README.Doc
 
 ### Updating Content
 
-- **Personal Info**: Edit components in `/components` directory
-- **Experience**: Update the experience array in `/components/Resume.tsx`
-- **Education**: Modify the education array in `/components/Resume.tsx`
-- **Skills**: Edit the skills array in `/components/About.tsx`
-- **Social Links**: Update URLs in `/components/SocialLinks.tsx`
+All content lives in `src/data/` — components contain markup only.
+
+- **Experience**: `src/data/resume.ts` → `experience`
+- **Education**: `src/data/resume.ts` → `education`
+- **Certifications**: `src/data/resume.ts` → `certifications`
+- **Skills**: `src/data/about.ts`
+- **Social Links**: `src/data/social.ts`
+- **Site metadata**: `src/data/site.ts`
 
 ### Styling
 
-- **Colors**: Modify Tailwind classes throughout components
-- **Fonts**: Update font configuration in `/app/layout.tsx`
-- **Animations**: Adjust Framer Motion settings in components
+Colors are semantic **design tokens** declared in `@theme` in
+`src/styles/global.css` (`bg-surface`, `text-strong`, `text-body`,
+`bg-accent`, …). Dark mode redefines those tokens once inside
+`@media (prefers-color-scheme: dark)`.
+
+Do not add `dark:` variants or raw shades like `bg-gray-50` to components —
+add or reuse a token instead, or dark mode will silently break.
+
+### Animations
+
+Add `data-reveal="up|left|right|scale|fade"` for scroll-in, or `data-enter`
+for on-load entrance. Stagger with `style="--reveal-delay: 100ms"`.
 
 ## 🔧 Configuration Files
 
-- `next.config.ts` - Next.js configuration
-- `tailwind.config.ts` - Tailwind CSS configuration
+- `astro.config.mjs` - Astro configuration (site URL, sitemap, Tailwind, fonts)
 - `tsconfig.json` - TypeScript configuration
-- `Dockerfile` - Docker build configuration
+- `nginx.conf` - Security headers, gzip, cache policy, 404 handling
+- `Dockerfile` - Multi-stage Docker build
 - `docker-compose.yml` - Docker Compose configuration
 
 ## 📱 Responsive Design
@@ -142,10 +162,10 @@ The website is fully responsive with breakpoints for:
 
 ## 🎨 Color Scheme
 
-- Primary: Blue (#2563eb)
-- Secondary: Purple (#9333ea)
-- Background: White/Gray gradients
-- Text: Gray shades (#111827 to #6b7280)
+- Primary: Blue (#2563eb light / #60a5fa dark)
+- Secondary: Purple (#9333ea light / #c084fc dark)
+- Background: White/Gray gradients, inverted in dark mode
+- Text: Gray shades (#111827 to #6b7280), inverted in dark mode
 
 ## 🤝 Connect
 
@@ -160,11 +180,10 @@ This project is private and proprietary. All rights reserved.
 
 ## 🙏 Acknowledgments
 
-- Built with [Next.js](https://nextjs.org/)
+- Built with [Astro](https://astro.build/)
 - Styled with [Tailwind CSS](https://tailwindcss.com/)
-- Animations by [Framer Motion](https://www.framer.com/motion/)
-- Icons from [Lucide](https://lucide.dev/)
+- Outline icons from [Lucide](https://lucide.dev/); brand marks from [Simple Icons](https://simpleicons.org/) and [Bootstrap Icons](https://icons.getbootstrap.com/)
 
 ---
 
-**© 2025 Oto Macenauer. All rights reserved.**
+**© 2026 Oto Macenauer. All rights reserved.**

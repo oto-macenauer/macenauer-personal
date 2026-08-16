@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { skills } from '@/data/about';
+import profile from '@/assets/profile.jpg';
+---
+
+<section id="about" class="py-20 px-4 bg-surface">
+  <div class="max-w-6xl mx-auto">
+    <div data-reveal="up">
+      <h2
+        class="text-4xl md:text-5xl font-bold text-center mb-16 text-strong"
+      >
+        About Me
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div class="space-y-6">
+          <p class="text-lg text-body leading-relaxed">
+            Hello! I&apos;m Oto Macenauer, a Tech Lead and full-stack developer
+            with over a decade of experience. Currently leading development of
+            cloud-native financial applications at Absa Group, I combine
+            hands-on engineering with technical leadership — guiding
+            architecture decisions and mentoring teams.
+          </p>
+          <p class="text-lg text-body leading-relaxed">
+            My expertise spans the full technology stack — from .NET and C# on
+            the backend to modern frontend work in Angular and Vue. I&apos;ve
+            shipped geospatial systems, banking platforms, and cloud-native
+            applications running on AWS and Kubernetes, with PostgreSQL and SQL
+            Server in the data layer.
+          </p>
+          <p class="text-lg text-body leading-relaxed">
+            Across roles at Accenture, Trask, GPS Dozor, iOCO, and Absa,
+            I&apos;ve led technical transformations and delivered complex
+            projects for clients including Škoda Auto, Česká pojišťovna, and
+            ČSOB Pojišťovna. Trained at Brno University of Technology and Czech
+            Technical University in Prague.
+          </p>
+        </div>
+
+        <div class="relative">
+          <div
+            class="aspect-square bg-gradient-to-br from-hero-from to-hero-to rounded-2xl overflow-hidden relative"
+          >
+            <Image
+              src={profile}
+              alt="Oto Macenauer"
+              widths={[400, 800, 1200]}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              loading="eager"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {
+          skills.map((skill, index) => (
+            <div
+              class="text-center p-6 rounded-xl bg-surface-alt hover:bg-surface-alt-hover transition-colors duration-200"
+              data-reveal="up"
+              style={`--reveal-delay: ${index * 100}ms`}
+            >
+              <div class="inline-flex p-3 rounded-full bg-accent-soft text-accent mb-4">
+                <Icon name={skill.icon} class="w-8 h-8" />
+              </div>
+              <h3 class="text-xl font-semibold mb-2 text-strong">
+                {skill.title}
+              </h3>
+              <p class="text-body">{skill.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

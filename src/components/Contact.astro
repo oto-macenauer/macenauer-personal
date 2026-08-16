@@ -1,0 +1,32 @@
+---
+import Icon from './Icon.astro';
+import { site } from '@/data/site';
+---
+
+<section id="contact" class="py-20 px-4 bg-surface">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center" data-reveal="up">
+      <h2 class="text-4xl md:text-5xl font-bold mb-8 text-strong">
+        Get In Touch
+      </h2>
+
+      <p class="text-lg text-body max-w-2xl mx-auto mb-12">
+        I&apos;m always interested in hearing about new opportunities, projects,
+        and ideas. Feel free to connect with me on LinkedIn for professional
+        inquiries and discussions.
+      </p>
+
+      <div class="flex justify-center">
+        <a
+          href={site.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 px-8 py-4 bg-accent text-on-accent rounded-full hover:bg-accent-hover transition-colors duration-200 font-medium text-lg"
+        >
+          <Icon name="linkedin" class="w-6 h-6" />
+          Connect on LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
