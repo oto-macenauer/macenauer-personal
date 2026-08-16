@@ -1,0 +1,164 @@
+---
+import { Image } from 'astro:assets';
+import Base from './Base.astro';
+import BlogNav from '@/components/BlogNav.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
+import { formatDate, isoDate, ogImagePath, tagPath, type Post } from '@/lib/blog';
+import { site } from '@/data/site';
+
+interface Props {
+  post: Post;
+  readingTime: number;
+}
+
+const { post, readingTime } = Astro.props;
+const { data } = post;
+
+const ogImage = ogImagePath(post);
+const canonical = data.canonical ?? new URL(Astro.url.pathname, Astro.site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: data.title,
+  description: data.summary,
+  image: new URL(ogImage, Astro.site).href,
+  datePublished: isoDate(data.date),
+  dateModified: isoDate(data.updated ?? data.date),
+  author: { '@type': 'Person', name: site.name, url: site.url },
+  publisher: { '@type': 'Person', name: site.name, url: site.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+  keywords: data.tags.join(', '),
+  inLanguage: 'en',
+};
+---
+
+<Base
+  title={`${data.title} - ${site.name}`}
+  description={data.summary}
+  ogType="article"
+  image={ogImage}
+>
+  <Fragment slot="head">
+    <meta property="article:published_time" content={isoDate(data.date)} />
+    {
+      data.updated && (
+        <meta
+          property="article:modified_time"
+          content={isoDate(data.updated)}
+        />
+      )
+    }
+    <meta property="article:author" content={site.name} />
+    {data.tags.map((tag) => <meta property="article:tag" content={tag} />)}
+    {data.canonical && <link rel="canonical" href={data.canonical} />}
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+      is:inline
+    />
+  </Fragment>
+
+  <BlogNav />
+
+  <main class="px-4 pb-20">
+    <article class="max-w-3xl mx-auto">
+      <header class="mb-10">
+        {
+          data.draft && (
+            <p class="mb-4 inline-block rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-accent">
+              Draft — not included in production builds
+            </p>
+          )
+        }
+
+        <h1
+          class="text-4xl md:text-5xl font-bold text-strong text-balance leading-tight"
+        >
+          {data.title}
+        </h1>
+
+        <p class="mt-5 text-lg text-body">{data.summary}</p>
+
+        <div
+          class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted"
+        >
+          <time datetime={isoDate(data.date)}>{formatDate(data.date)}</time>
+          <span class="text-subtle" aria-hidden="true">·</span>
+          <span>{readingTime} min read</span>
+          {
+            data.updated && (
+              <>
+                <span class="text-subtle" aria-hidden="true">
+                  ·
+                </span>
+                <span>Updated {formatDate(data.updated)}</span>
+              </>
+            )
+          }
+        </div>
+
+        <div class="mt-4 flex flex-wrap gap-2">
+          {
+            data.tags.map((tag) => (
+              <a
+                href={tagPath(tag)}
+                class="rounded-full border border-subtle px-3 py-1 text-sm text-muted hover:border-accent hover:text-accent transition-colors"
+              >
+                {tag}
+              </a>
+            ))
+          }
+        </div>
+      </header>
+
+      <figure class="mb-12">
+        <div class="rounded-2xl overflow-hidden bg-surface-alt">
+          <Image
+            src={data.cover}
+            alt={data.coverAlt}
+            widths={[640, 960, 1280]}
+            sizes="(max-width: 768px) 100vw, 768px"
+            loading="eager"
+            class="w-full h-auto"
+          />
+        </div>
+        {
+          data.credit && (
+            <figcaption class="mt-3 text-sm text-muted text-center">
+              Photo by{' '}
+              {data.credit.url ? (
+                <a
+                  href={data.credit.url}
+                  rel="noopener noreferrer nofollow"
+                  target="_blank"
+                  class="underline underline-offset-2 hover:text-accent"
+                >
+                  {data.credit.name}
+                </a>
+              ) : (
+                data.credit.name
+              )}{' '}
+              on {data.credit.source} ({data.credit.license})
+            </figcaption>
+          )
+        }
+      </figure>
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      <hr class="my-12 border-subtle" />
+
+      <a
+        href="/blog/"
+        class="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors"
+      >
+        ← All posts
+      </a>
+    </article>
+  </main>
+
+  <SocialLinks />
+</Base>

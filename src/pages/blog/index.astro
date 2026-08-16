@@ -1,0 +1,58 @@
+---
+import Base from '@/layouts/Base.astro';
+import BlogNav from '@/components/BlogNav.astro';
+import PostCard from '@/components/PostCard.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
+import { getPostSummaries, getAllTags, tagPath } from '@/lib/blog';
+import { site } from '@/data/site';
+
+const summaries = await getPostSummaries();
+const tags = await getAllTags();
+---
+
+<Base
+  title={`Blog - ${site.name}`}
+  description="Writing on software engineering, cloud-native architecture, and leading technical teams."
+>
+  <BlogNav />
+
+  <main class="px-4 pb-20">
+    <header class="max-w-3xl mx-auto mb-14">
+      <h1 class="text-4xl md:text-5xl font-bold text-strong">Blog</h1>
+      <p class="mt-4 text-lg text-body">
+        Notes on software engineering, cloud-native architecture, and leading
+        technical teams.
+      </p>
+
+      {
+        tags.length > 0 && (
+          <div class="mt-6 flex flex-wrap gap-2">
+            {tags.map(({ tag, count }) => (
+              <a
+                href={tagPath(tag)}
+                class="rounded-full border border-subtle px-3 py-1 text-sm text-muted hover:border-accent hover:text-accent transition-colors"
+              >
+                {tag}
+                <span class="text-subtle"> {count}</span>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    {
+      summaries.length === 0 ? (
+        <p class="max-w-3xl mx-auto text-body">Nothing published yet.</p>
+      ) : (
+        <div class="max-w-6xl mx-auto grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+          {summaries.map((summary, index) => (
+            <PostCard summary={summary} index={index} />
+          ))}
+        </div>
+      )
+    }
+  </main>
+
+  <SocialLinks />
+</Base>
