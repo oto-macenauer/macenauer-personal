@@ -10,6 +10,8 @@ That was the part worth getting right. A rehearsed answer sounds rehearsed, and 
 
 We finished on where AI goes next, which is the part that will age fastest.
 
+Watch the episode: https://www.linkedin.com/feed/update/urn:li:activity:7493442524913565696/
+
 Full post: https://www.macenauer.net/blog/the-tech-roast-episode-is-out/
 
 #podcast #aws #eventdrivenarchitecture #softwarearchitecture
