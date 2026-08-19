@@ -10,6 +10,18 @@ services:
       # nginx-unprivileged listens on 8080 inside the container.
       - "3000:8080"
     restart: unless-stopped
+    # Hardening: static-file nginx needs no capabilities (port 8080 is
+    # unprivileged), must never gain privileges via setuid binaries, and
+    # never writes anywhere except its temp dirs — nginx-unprivileged
+    # points pid file and all *_temp paths at /tmp, so a tmpfs there is
+    # the only writable mount the container gets.
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
     healthcheck:
       # 127.0.0.1, not localhost: nginx binds IPv4 only, and busybox wget
       # resolves localhost to ::1 first, which fails with "connection refused".
