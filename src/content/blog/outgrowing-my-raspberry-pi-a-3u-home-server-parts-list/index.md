@@ -1,6 +1,7 @@
 ---
 title: 'Outgrowing my Raspberry Pi: a 3U home server parts list'
 date: 2026-08-20
+updated: 2026-08-23
 summary: Immich pegged my Raspberry Pi 4 at 100% for days and Jellyfin gave up on 4K HEVC. Here is the x86 rackmount build I picked to replace it, and why each part.
 tags: [homelab, self-hosting, hardware, docker]
 cover: media/hero.jpg
@@ -102,6 +103,15 @@ proprietary or SFX unit, and up to 100 mm of cooler clearance, which is what
 lets the Noctua fit at all. It carries eight hot-swap 3.5" bays, which is the
 part that makes this a ten-year box rather than a two-year one.
 
+:::note
+**Update, 23 August 2026.** This chassis never made it into the rack. It is
+528 mm deep and my cabinet takes 390 mm, so it went back on the list before I
+ordered it, and the cooler had to change with it.
+[Part two covers what replaced them](/blog/the-chassis-did-not-fit-finding-an-ultra-short-2u/).
+The replacement landed within 151 Kč of the price below, so the bill of
+materials still stands.
+:::
+
 ## Storage: start small, grow live
 
 The array starts as a single 4 TB WD Red Plus. CMR, not SMR — shingled drives
@@ -159,5 +169,6 @@ What is in your rack? I would genuinely like to know what people settled on,
 especially anyone who went the used-enterprise-hardware route and can tell me
 what the power bill looked like.
 
-Next up: unboxing, assembling the 3U chassis, cable management, thermal
+Next up: [the chassis did not fit the rack](/blog/the-chassis-did-not-fit-finding-an-ultra-short-2u/),
+and what I replaced it with. After that: assembly, cable management, thermal
 testing, and getting an OS on it.
