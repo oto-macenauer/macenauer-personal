@@ -31,7 +31,7 @@
     "@resvg/resvg-js": "^2.6.2",
     "@types/node": "^26",
     "@types/pdfkit": "^0.17.6",
-    "satori": "^0.32.0",
+    "satori": "^0.33.4",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3"
   },
