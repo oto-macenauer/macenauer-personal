@@ -128,4 +128,4 @@ If your rack is short, work outward from the case: pick the chassis that
 physically fits, then the board, cooler and PSU that fit inside it. I did it in
 the other order and got away with it only because one box had not shipped.
 
-Next: whether any of this actually arrives in one piece.
+Next: [it arrived, it fit, and the fans had to go](/blog/finished-the-server-is-built-and-it-purrs/).
